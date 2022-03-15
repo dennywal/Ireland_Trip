@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title></title>
+    <script type="text/javascript">
+      var image_array = ['photos\\IMG_2040.JPEG', 'photos\\IMG_2041.JPEG', 'photos\\IMG_2042.JPEG'];
+      function load_img(imgId, image, images, index) {
+        image.onerror = function() {
+          load_img(imgId, this, images, index+1);
+        };
+        image.onload  = function() {
+          var element = document.getElementById(imgId); 
+          load_img(imgId, this, images, index);
+          setTimeout(function() {
+            load_img(imgId, this, images, index+1);
+          }, 1500);
+          if (element) {
+            element.src = this.src; 
+            element.style.display = 'block';
+          }
+        };  
+        image.src = images[index];
+      }
+    </script>
+  </head>
+  <body>
+    <img id="id_1" alt="" style="display: none;">
+  </body>
+  <script>
+        load_img('id_1', new Image(), image_array, 0);
+  </script>
+</html>
